@@ -15,5 +15,13 @@ public class Main {
 
         Logger.setFormat("%m %x %m");
         logger.info("echo");
+
+        Logger.setFormat("[%t] [%l] %n %m"); // default
+
+        ParenthesesValidator validator = new ParenthesesValidator();
+        System.out.println(validator.isValid("()"));
+        System.out.println(validator.isValid(")((()))"));
+        System.out.println(validator.isValid("("));
+        System.out.println(validator.isValid("(())((()())())"));
     }
 }
