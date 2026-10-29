@@ -1,5 +1,6 @@
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 enum LogLevel { TRACE, INFO, WARN, ERROR}
 
@@ -10,6 +11,7 @@ public class Logger {
     private static final DateTimeFormatter TIME_FORMAT =
             DateTimeFormatter.ofPattern("HH:mm:ss");
     //self - convention for variables marked as static final i.e constants
+    private static final Random random = new Random();
 
     private final String name;
 
@@ -19,6 +21,7 @@ public class Logger {
             case 'm' -> message;
             case 'n' -> name;
             case 'l' -> msgLevel.name();
+            case 'r' -> randomMessage(msgLevel);
             default -> null;
         };
     }
@@ -41,6 +44,16 @@ public class Logger {
         return result.toString();
     }
 // Java strings can't be modified
+    private String randomMessage(LogLevel msgLevel){
+        String[] options = switch (msgLevel){
+            case TRACE -> new String[] {"Howdy", "Nothing important here", "Quite windy outside"};
+            case INFO  -> new String[] {"Operation completed", "Everything looks good", "Here is your result"};
+            case WARN  -> new String[] {"Something is off", "Double check", "This looks wrong"};
+            case ERROR -> new String[] {"URGENT", "Something went wrong", "You messed up"};
+        };
+        return options[random.nextInt(options.length)];
+    }
+
     public Logger(String name) {
         this.name = name;
     }

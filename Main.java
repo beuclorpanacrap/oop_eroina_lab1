@@ -16,12 +16,24 @@ public class Main {
         Logger.setFormat("%m %x %m");
         logger.info("echo");
 
-        Logger.setFormat("[%t] [%l] %n %m"); // default
+        Logger.setFormat("[%t] [%l] %n: %m"); // default
+
+        Logger.setLevel(LogLevel.WARN);
 
         ParenthesesValidator validator = new ParenthesesValidator();
         System.out.println(validator.isValid("()"));
         System.out.println(validator.isValid(")((()))"));
         System.out.println(validator.isValid("("));
         System.out.println(validator.isValid("(())((()())())"));
+
+        Logger.setLevel(LogLevel.TRACE);
+        Logger.setFormat("[%l] %r");
+        logger.trace("");
+        logger.info("");
+        logger.warn("");
+        logger.error("");
+
+        Logger.setFormat("[%t] [%l] %n: %m");
+
     }
 }
