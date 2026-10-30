@@ -32,7 +32,7 @@ The logging level and format are shared between all loggers as they are static.
 
 ## 3. Static and Instance Members
 
-In `Logger`, the level, format, TIME_FORMAT, and random fields are static. I.E. they belong to the class (They're automatically assigned as attributes for each instance we create)
+In `Logger`, the level, format, TIME_FORMAT, and random fields are static. I.E. they belong to the class.
 
 To understand the `"Why"` behind that decision, just consider the opposite: I want all objects to have the same configuration, as a result - I will make sure that every single object gets it's instance class variable assigned.
 
@@ -92,8 +92,7 @@ return report(input, open == 0);
 
 This means the input is valid only if every opening parenthesis has been matched.
 
-One test that one my colleagues pointed out to me was using ")(" as input, and I'm really grateful they did. Initially, I just checked whether the number of opening and closing parentheses was equal, not accounting for the fact that the order also matters...
-
+One test that helped me find an error was running `Main` with the default format. The output was `20:29:34INFOTestinfo message`, so my placeholders were being replaced correctly, but all of the brackets, spaces, and colons were missing... The cause was a missing line in `formatMessage`: `result.append(c);`. After I added it, the output became `[20:32:18] [INFO] Test: info message`.
 (Big mistake looking back)
 ## 6. Reflection
 
