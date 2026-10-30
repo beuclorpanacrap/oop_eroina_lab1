@@ -18,7 +18,8 @@ public class ParenthesesValidator {
 
             if (c == '(') {
                 open++;
-                logger.trace("Opening parenthesis found at index " + i + ", need: " + open + " closing parenthesis/es");            } else if (c == ')') {
+                logger.trace("Opening parenthesis found at index " + i + ", need: " + open + " closing parenthesis/es");
+            } else if (c == ')') {
                 if (open == 0) {
                     logger.warn("Closing parenthesis at index " + i + " has no open parenthesis pair");
                     return report(input, false);

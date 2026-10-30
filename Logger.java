@@ -10,7 +10,9 @@ public class Logger {
 
     private static final DateTimeFormatter TIME_FORMAT =
             DateTimeFormatter.ofPattern("HH:mm:ss");
+
     //self - convention for variables marked as static final i.e constants
+
     private static final Random random = new Random();
 
     private final String name;
