@@ -13,7 +13,7 @@ public class Main {
         Logger.setFormat("[%t] %m 100%");
         logger.info("Valid input");
 
-        Logger.setFormat("%m %x %m");
+        Logger.setFormat("%m %m");
         logger.info("echo");
 
         Logger.setFormat("[%t] [%l] %n: %m"); // default

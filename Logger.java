@@ -15,6 +15,14 @@ public class Logger {
 
     private static final Random random = new Random();
 
+    private static final String[] traceMessages =  {"Howdy", "Nothing important here", "Quite windy outside"};
+
+    private static final String[] infoMessages = {"Operation completed", "Everything looks good", "Here is your result"};
+
+    private static final String[] warnMessages = {"Something is off", "Double check", "This looks wrong"};
+
+    private static final String[] errorMessages = {"URGENT", "Something went wrong", "You messed up"};
+
     private final String name;
 
     private String placeholderValue(char placeholder, LogLevel msgLevel, String message){
@@ -45,15 +53,15 @@ public class Logger {
         }
         return result.toString();
     }
-// Java strings can't be modified
+    // Java strings can't be modified
     private String randomMessage(LogLevel msgLevel){
-        String[] options = switch (msgLevel){
-            case TRACE -> new String[] {"Howdy", "Nothing important here", "Quite windy outside"};
-            case INFO  -> new String[] {"Operation completed", "Everything looks good", "Here is your result"};
-            case WARN  -> new String[] {"Something is off", "Double check", "This looks wrong"};
-            case ERROR -> new String[] {"URGENT", "Something went wrong", "You messed up"};
+        String option = switch (msgLevel){
+            case TRACE -> traceMessages[random.nextInt(traceMessages.length)];
+            case INFO -> infoMessages[random.nextInt(traceMessages.length)];
+            case WARN  -> warnMessages[random.nextInt(traceMessages.length)];
+            case ERROR -> errorMessages[random.nextInt(traceMessages.length)];
         };
-        return options[random.nextInt(options.length)];
+        return option;
     }
 
     public Logger(String name) {
@@ -66,6 +74,7 @@ public class Logger {
     public static void setFormat(String newFormat){
         format = newFormat;
     }
+
     public void log(LogLevel msgLevel, String message){
         if (msgLevel.compareTo(level) < 0) {
             return;
