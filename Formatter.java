@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Formatter {
 
-    private static String format = "[%t] [%l] %n: %m";
+    private String format = "[%t] [%l] %n: %m";
 
     private static final DateTimeFormatter TIME_FORMAT =
             DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -56,7 +56,7 @@ public class Formatter {
             default -> null;
         };
     }
-    public static void setFormat(String newFormat){
+    public void setFormat(String newFormat){
         format = newFormat;
     }
 }

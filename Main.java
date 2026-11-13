@@ -1,22 +1,28 @@
 public class Main {
     public static void main(String[] args) {
         Logger logger = new Logger("Test");
-        Logger logger2 = new Logger("Test2");
-
         logger.info("Ratio is 100%n");
 
-        Formatter formatter = new Formatter();
+        Formatter sharedFormatter = new Formatter();
+        ConsoleSink sharedSink = new ConsoleSink();
 
-        System.out.println(formatter.formatIt("Test",LogLevel.ERROR, "Something went wrong!"));
+        Logger logger2 = new Logger("Test2", sharedFormatter, sharedSink);
+        Logger logger3 = new Logger("Test3", sharedFormatter, sharedSink);
 
-        Formatter.setFormat("[%n] [%t] %m: %l");
-
-        Formatter formatter2 = new Formatter();
-
-        System.out.println(formatter2.formatIt("Test2",LogLevel.WARN, "Check urgently!"));
-
-        System.out.println(formatter.formatIt("Test",LogLevel.ERROR, "Something went wrong!"));
+        sharedFormatter.setFormat("[%n] [%t] %m: %l");
 
         logger2.info("User entered: Hello %n World");
+        logger3.error("User app crashed: Something went wrong");
+
+        Formatter customFormatter = new Formatter();
+        customFormatter.setFormat("[%l] %n: %m");
+
+        Logger customLogger = new Logger("Custom", customFormatter, sharedSink);
+        customLogger.warn("Check urgently!");
+
+        logger.info("Still using the default format");
+
+        ParenthesesValidator validator = new ParenthesesValidator();
+        validator.isValid("(())))");
     }
 }
