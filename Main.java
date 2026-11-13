@@ -1,39 +1,22 @@
 public class Main {
     public static void main(String[] args) {
         Logger logger = new Logger("Test");
+        Logger logger2 = new Logger("Test2");
 
-        logger.log(LogLevel.TRACE, "trace Message");
-        logger.log(LogLevel.INFO, "info message");
-        logger.log(LogLevel.WARN, "warn message");
-        logger.log(LogLevel.ERROR, "error message");
+        logger.info("Ratio is 100%n");
 
-        Logger.setFormat("%l - %n - %m");
-        logger.error("Invalid input");
+        Formatter formatter = new Formatter();
 
-        Logger.setFormat("[%t] %m 100%");
-        logger.info("Valid input");
+        System.out.println(formatter.formatIt("Test",LogLevel.ERROR, "Something went wrong!"));
 
-        Logger.setFormat("%m %m");
-        logger.info("echo");
+        Formatter.setFormat("[%n] [%t] %m: %l");
 
-        Logger.setFormat("[%t] [%l] %n: %m"); // default
+        Formatter formatter2 = new Formatter();
 
-        Logger.setLevel(LogLevel.WARN);
+        System.out.println(formatter2.formatIt("Test2",LogLevel.WARN, "Check urgently!"));
 
-        ParenthesesValidator validator = new ParenthesesValidator();
-        System.out.println(validator.isValid("()"));
-        System.out.println(validator.isValid(")((()))"));
-        System.out.println(validator.isValid("("));
-        System.out.println(validator.isValid("(())((()())())"));
+        System.out.println(formatter.formatIt("Test",LogLevel.ERROR, "Something went wrong!"));
 
-        Logger.setLevel(LogLevel.TRACE);
-        Logger.setFormat("[%l] %r");
-        logger.trace("");
-        logger.info("");
-        logger.warn("");
-        logger.error("");
-
-        Logger.setFormat("[%t] [%l] %n: %m");
-
+        logger2.info("User entered: Hello %n World");
     }
 }
