@@ -22,16 +22,16 @@ public class Logger {
         level = newLevel;
     }
 
-    public void log(LogLevel msgLevel, String message){
+    public void log(LogLevel msgLevel, String message, Object... args) {
         if (msgLevel.compareTo(level) < 0) return;
-        consoleSink.write(formatter.formatIt(name, msgLevel, message));
+        consoleSink.write(formatter.formatIt(name, msgLevel, formatter.formatItMessage(message, args)));
     }
 
 
-    public void trace(String message) { log(LogLevel.TRACE, message); }
-    public void info(String message)  { log(LogLevel.INFO, message); }
-    public void warn(String message)  { log(LogLevel.WARN, message); }
-    public void error(String message) { log(LogLevel.ERROR, message); }
+    public void trace(String message, Object ... args) { log(LogLevel.TRACE, message, args); }
+    public void info(String message, Object ... args)  { log(LogLevel.INFO, message, args); }
+    public void warn(String message, Object ... args)  { log(LogLevel.WARN, message, args); }
+    public void error(String message, Object ... args) { log(LogLevel.ERROR, message, args); }
 
 
 }

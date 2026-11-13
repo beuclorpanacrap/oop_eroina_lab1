@@ -45,7 +45,30 @@ public class Formatter {
             }
             return result.toString();
         }
+    public String formatItMessage( String message, Object ... args){
+        StringBuilder resultMessage = new StringBuilder();
+        int argsCounter = 0;
 
+            for (int i = 0; i < message.length(); i++){
+                char c = message.charAt(i);
+
+                if (c == '%' && i + 1 < message.length() && message.charAt(i + 1) == '%') {
+                    resultMessage.append('%');
+                    i++;
+                    continue;
+                }
+
+                if (c == '%' && argsCounter < args.length){
+                    String replacement = String.valueOf(args[argsCounter]);
+                        resultMessage.append(replacement);
+                        argsCounter++;
+                        continue;
+
+                }
+                resultMessage.append(c);
+            }
+            return resultMessage.toString();
+    }
     private String placeholderValue(char placeholder, String name, LogLevel msgLevel, String message) {
         return switch (placeholder) {
             case 't' -> LocalTime.now().format(TIME_FORMAT);

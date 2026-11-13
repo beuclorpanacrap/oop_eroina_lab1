@@ -1,5 +1,5 @@
 public class Main {
-    public static void main(String[] args) {
+     static void main(String[] args) {
         Logger logger = new Logger("Test");
         logger.info("Ratio is 100%n");
 
@@ -24,5 +24,10 @@ public class Main {
 
         ParenthesesValidator validator = new ParenthesesValidator();
         validator.isValid("(())))");
+
+        System.out.println(customFormatter.formatItMessage("Hello %, welcome to %%%!", "Alex", "Paris"));
+
+         logger.info("Found % items in % boxes", 5, 2);
+         logger.warn("Battery at 100%%");
     }
 }
