@@ -43,5 +43,38 @@ public class Main {
         System.out.println(lg.compareWithMonitor(dell));
         System.out.println("\n");
         System.out.println(dell.compareWithMonitor(samsung));
-    }
+        System.out.println("\n");
+
+        DisplayManager bob = new DisplayManager("Bob");
+        DisplayManager alice = new DisplayManager("Alice");
+
+        bob.assignDisplay(samsung);
+        bob.assignDisplay(lg);
+        bob.assignDisplay(dell);
+
+        alice.assignDisplay(dell);
+        alice.assignDisplay(samsung);
+
+        System.out.println("\nBob's comparisons:");
+        bob.assist();
+        System.out.println("\n");
+
+
+        System.out.println("\nAlice's comparisons:");
+        alice.assist();
+        System.out.println("\n");
+
+
+        bob.buyDisplay(dell);
+
+        System.out.println("\nBob's comparisons after purchase:");
+        bob.assist();
+        System.out.println("\n");
+
+
+        System.out.println("\nAlice's comparisons after Bob's purchase:");
+        alice.assist();
+        System.out.println("\n");
+
+     }
 }
