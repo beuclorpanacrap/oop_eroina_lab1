@@ -4,12 +4,15 @@ public class Display {
     private final int width;
     private final int height;
     private final float ppi;
+    private final Logger logger;
 
-    public Display(String model, int width, int height, float ppi) {
+    public Display(String model, int width, int height, float ppi, Logger logger) {
         this.model = model;
         this.width = width;
         this.height = height;
         this.ppi = ppi;
+        this.logger = logger;
+        logger.trace("Display % has been created", model);
     }
 
     public double calculateDiagonal() {
@@ -70,5 +73,8 @@ public class Display {
         }
 
         return size + "\n" + sharpness + "\nFinal verdict: " + verdict;
+    }
+    public String getModel() {
+        return model;
     }
 }

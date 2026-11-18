@@ -1,80 +1,90 @@
+
 public class Main {
-     static void main(String[] args) {
-        Logger logger = new Logger("Test");
-        logger.info("Ratio is 100%n");
+   public static void main(String[] args) {
+      Logger.setLevel(LogLevel.TRACE);
 
-        Formatter sharedFormatter = new Formatter();
-        ConsoleSink sharedSink = new ConsoleSink();
+      Logger logger = new Logger("Test");
+      logger.info("Ratio is 100%n");
 
-        Logger logger2 = new Logger("Test2", sharedFormatter, sharedSink);
-        Logger logger3 = new Logger("Test3", sharedFormatter, sharedSink);
+      Formatter sharedFormatter = new Formatter();
+      ConsoleSink sharedSink = new ConsoleSink();
 
-        sharedFormatter.setFormat("[%n] [%t] %m: %l");
+      Logger logger2 = new Logger("Test2", sharedFormatter, sharedSink);
+      Logger logger3 = new Logger("Test3", sharedFormatter, sharedSink);
 
-        logger2.info("User entered: Hello %n World");
-        logger3.error("User app crashed: Something went wrong");
+      sharedFormatter.setFormat("[%n] [%t] %m: %l");
 
-        Formatter customFormatter = new Formatter();
-        customFormatter.setFormat("[%l] %n: %m");
+      logger2.info("User entered: Hello %n World");
+      logger3.error("User app crashed: Something went wrong");
 
-        Logger customLogger = new Logger("Custom", customFormatter, sharedSink);
-        customLogger.warn("Check urgently!");
-        System.out.println("\n");
+      Formatter customFormatter = new Formatter();
+      customFormatter.setFormat("[%l] %n: %m");
 
-        logger.info("Still using the default format");
+      Logger customLogger = new Logger("Custom", customFormatter, sharedSink);
+      customLogger.warn("Check urgently!");
+      System.out.println("\n");
 
-        ParenthesesValidator validator = new ParenthesesValidator();
-        validator.isValid("(())))");
+      logger.info("Still using the default format");
+      sharedFormatter.setFormat("[%t] [%l] %m");
 
-        System.out.println("\n");
+      ParenthesesValidator validator = new ParenthesesValidator();
+      validator.isValid("(())))");
 
-        System.out.println(customFormatter.formatItMessage("Hello %, welcome to %%%!", "Alex", "Paris"));
+      System.out.println("\n");
 
-         logger.info("Found % items in % boxes", 5, 2);
-         logger.warn("Battery at 100%%");
-        System.out.println("\n");
+      System.out.println(customFormatter.formatItMessage(
+              "Hello %, welcome to %%%!", "Alex", "Paris"
+      ));
 
-        Display samsung = new Display("Samsung-Odyssey-G5", 2560, 1440, 93.0f);
-        Display lg = new Display("LG-27GP850", 2560, 1440, 108.8f);
-        Display dell = new Display("Dell-U2723QE", 3840, 2160, 163.0f);
+      logger.info("Found % items in % boxes", 5, 2);
+      logger.warn("Battery at 100%%");
+      System.out.println("\n");
 
-        System.out.println(samsung.compareWithMonitor(lg));
-        System.out.println("\n");
-        System.out.println(lg.compareWithMonitor(dell));
-        System.out.println("\n");
-        System.out.println(dell.compareWithMonitor(samsung));
-        System.out.println("\n");
+      Logger displayLogger = new Logger("Display", sharedFormatter, sharedSink);
+      Logger bobLogger = new Logger("Bob", sharedFormatter, sharedSink);
+      Logger aliceLogger = new Logger("Alice", sharedFormatter, sharedSink);
 
-        DisplayManager bob = new DisplayManager("Bob");
-        DisplayManager alice = new DisplayManager("Alice");
+      Display samsung = new Display("Samsung-Odyssey-G5", 2560, 1440, 93.0f, displayLogger);
+      Display lg = new Display("LG-27GP850", 2560, 1440, 108.8f, displayLogger);
+      Display dell = new Display("Dell-U2723QE", 3840, 2160, 163.0f, displayLogger);
 
-        bob.assignDisplay(samsung);
-        bob.assignDisplay(lg);
-        bob.assignDisplay(dell);
+      System.out.println(samsung.compareWithMonitor(lg));
+      System.out.println("\n");
+      System.out.println(lg.compareWithMonitor(dell));
+      System.out.println("\n");
+      System.out.println(dell.compareWithMonitor(samsung));
+      System.out.println("\n");
 
-        alice.assignDisplay(dell);
-        alice.assignDisplay(samsung);
+      DisplayManager bob = new DisplayManager("Bob", bobLogger);
+      DisplayManager alice = new DisplayManager("Alice", aliceLogger);
 
-        System.out.println("\nBob's comparisons:");
-        bob.assist();
-        System.out.println("\n");
+      bob.assignDisplay(samsung);
+      bob.assignDisplay(lg);
+      bob.assignDisplay(dell);
 
+      alice.assignDisplay(dell);
+      alice.assignDisplay(samsung);
 
-        System.out.println("\nAlice's comparisons:");
-        alice.assist();
-        System.out.println("\n");
+      System.out.println("\nBob's comparisons:");
+      bob.assist();
+      System.out.println("\n");
 
+      System.out.println("\nAlice's comparisons:");
+      alice.assist();
+      System.out.println("\n");
 
-        bob.buyDisplay(dell);
+      bob.buyDisplay(dell);
 
-        System.out.println("\nBob's comparisons after purchase:");
-        bob.assist();
-        System.out.println("\n");
+      System.out.println("\nBob's comparisons after purchase:");
+      bob.assist();
+      System.out.println("\n");
 
+      System.out.println("\nAlice's comparisons after Bob's purchase:");
+      alice.assist();
+      System.out.println("\n");
 
-        System.out.println("\nAlice's comparisons after Bob's purchase:");
-        alice.assist();
-        System.out.println("\n");
-
-     }
+      bob.buyDisplay(dell);
+      bob.buyDisplay(samsung);
+      bob.assist();
+   }
 }
