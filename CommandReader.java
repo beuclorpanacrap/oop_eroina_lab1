@@ -32,6 +32,11 @@ public class CommandReader {
                         case "MANAGER":
                             logger.trace("MANAGER command detected");
 
+                            if (parts.length != 2) {
+                                logger.error("Line %: MANAGER requires exactly 1 name", counter);
+                                break;
+                            }
+
                             boolean exists = false;
                             for (DisplayManager manager : managers) {
                                 if (manager.getName().equals(parts[1])) {
@@ -51,6 +56,11 @@ public class CommandReader {
                         case "DISPLAY":
                             logger.trace("DISPLAY command detected");
 
+                            if (parts.length != 5) {
+                                logger.error("Line %: DISPLAY requires a model, width, height and ppi", counter);
+                                break;
+                            }
+
                             int width = Integer.parseInt(parts[2]);
                             int height = Integer.parseInt(parts[3]);
                             float ppi = Float.parseFloat(parts[4]);
@@ -61,6 +71,11 @@ public class CommandReader {
 
                         case "ASSIGN":
                             logger.trace("ASSIGN command detected");
+
+                            if (parts.length != 3) {
+                                logger.error("Line %: ASSIGN requires a display and a manager", counter);
+                                break;
+                            }
 
                             Display foundDisplay = null;
                             for (Display d : displays) {
@@ -84,6 +99,11 @@ public class CommandReader {
 
                         case "COMPARE":
                             logger.trace("COMPARE command detected");
+
+                            if (parts.length != 3) {
+                                logger.error("Line %: COMPARE requires exactly 2 displays", counter);
+                                break;
+                            }
 
                             Display foundDisplay1 = null;
                             Display foundDisplay2 = null;
@@ -109,6 +129,11 @@ public class CommandReader {
                         case "ASSIST":
                             logger.trace("ASSIST command detected");
 
+                            if (parts.length != 2) {
+                                logger.error("Line %: ASSIST requires exactly 1 manager", counter);
+                                break;
+                            }
+
                             DisplayManager assistManager = null;
                             for (DisplayManager m : managers) {
                                 if (m.getName().equals(parts[1])) {
@@ -123,6 +148,11 @@ public class CommandReader {
 
                         case "BUY":
                             logger.trace("BUY command detected");
+
+                            if (parts.length != 3) {
+                                logger.error("Line %: BUY requires a display and a manager", counter);
+                                break;
+                            }
 
                             Display buyDisplay = null;
                             for (Display d : displays) {
@@ -140,8 +170,15 @@ public class CommandReader {
                                 }
                             }
 
-                            if (buyManager != null && buyDisplay != null) {buyManager.buyDisplay(buyDisplay);}
-                            else {logger.error("Line %: Couldn't buy display % from manager %", counter, parts[1], parts[2]);}
+                            if (buyManager != null && buyDisplay != null) {
+                                Display bought = buyManager.buyDisplay(buyDisplay);
+
+                                if (bought == null) {
+                                    logger.error("Line %: Purchase of % by % failed", counter, parts[1], parts[2]);
+                                }
+                            } else {
+                                logger.error("Line %: Display % or manager % not found", counter, parts[1], parts[2]);
+                            }
                             break;
 
                         default:

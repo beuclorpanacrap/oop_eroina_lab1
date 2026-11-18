@@ -16,3 +16,9 @@ BUY BenQ-PD2705U Carol
 ASSIST Carol
 COMPARE BenQ-PD2705U
 There are more than eight
+MANAGER Bob Alice
+DISPLAY Test 1920 1080 100 extra
+ASSIGN Test Bob extra
+COMPARE Test
+ASSIST Bob extra
+BUY Test Bob extra
