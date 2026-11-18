@@ -33,4 +33,7 @@ public class DisplayManager {
         logger.error("Manager % failed to buy display: %", name, display.getModel());
         return null;
     }
+    public String getName(){
+        return name;
+    }
 }
