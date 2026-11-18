@@ -12,8 +12,11 @@ public class DisplayManager {
         logger.trace("Manager % created", name);
     }
     public void assignDisplay(Display display){
-        displays.add(display);
-        logger.trace("Display % assigned to manager %", display.getModel(), name);
+        if (!displays.contains(display)) {
+            displays.add(display);
+            logger.trace("Display % assigned to manager %", display.getModel(), name);
+        } else {
+            logger.error("Display % already assigned to manager %", display.getModel(), name);}
     }
     public void assist(){
         if (displays.size() < 2){
