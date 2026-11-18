@@ -86,5 +86,10 @@ public class Main {
       bob.buyDisplay(dell);
       bob.buyDisplay(samsung);
       bob.assist();
+      Logger readerLogger = new Logger("CommandReader", sharedFormatter, sharedSink);
+      CommandReader reader = new CommandReader(readerLogger);
+
+      reader.readCommands("commands.txt");
+      reader.readCommands("missing.txt");
    }
 }

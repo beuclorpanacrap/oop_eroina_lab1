@@ -1,0 +1,3 @@
+MANAGER Bob
+DISPLAY Samsung 2560 1440 93
+ASSIGN Samsung Bob
